@@ -12,7 +12,6 @@ namespace Source.Menu.UI
         [SerializeField] public List<Button> menuButtons;
         [SerializeField] public GameObject menuParentObject;
 
-        private bool _isAddressFieldFilled = false;
         private bool _isNameFieldFilled = false;
 
         private NetManager _manager => NetManager.singletoneManager;
@@ -34,9 +33,6 @@ namespace Source.Menu.UI
 
         public void OnAddressChanged(InputField field)
         {
-            if (!string.IsNullOrWhiteSpace(field.text))
-                _isAddressFieldFilled = true;
-            
             CheckButtonsState();
             
             _manager.networkAddress = field.text;
@@ -54,7 +50,7 @@ namespace Source.Menu.UI
 
         private void CheckButtonsState()
         {
-            if (_isAddressFieldFilled && _isNameFieldFilled)
+            if (_isNameFieldFilled)
             {
                 foreach (var x in menuButtons)
                     x.interactable = true;
